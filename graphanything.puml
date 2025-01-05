@@ -1,0 +1,48 @@
+@startuml
+entity User {
+    * _id: ObjectId
+    --
+    email: String
+    name: String
+    authProvider: dict
+}
+
+entity Dataset {
+    * _id: ObjectId
+    --
+    name: String
+    description: String
+    source: String
+    data: String
+}
+
+entity Session {
+    * _id: ObjectId
+    --
+    userId: ObjectId
+    name: String
+    createdDate: String
+}
+
+entity Graph {
+    * _id: ObjectId
+    --
+    sessionId: ObjectId
+    name: String
+    type: String
+}
+
+entity Data {
+    * _id: ObjectId
+    --
+    graphId: ObjectId
+    datasetId: ObjectId
+    filters: dict
+}
+
+User "1" --> "0..*" Session: has
+Session "1" --> "0..*" Graph: contains
+Graph "1" --> "0..*" Data: uses
+Dataset "1" --> "0..*" Data: references
+
+@enduml⏎                                  
